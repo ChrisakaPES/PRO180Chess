@@ -6,10 +6,10 @@ import java.util.regex.*;
 
 public class FileIO
 {
-	private static final Pattern PLACING_PIECE_PATTERN = Pattern.compile("([K,Q,R,B,N,P][l,d][a-h][1-8])");
-	private static final Pattern MOVING_PIECE_PATTERN = Pattern.compile("([K,Q,R,B,N,P][a-h][1-8]\\s[K,Q,R,B,N,P][a-h][1-8])");
-	private static final Pattern CAPTURING_PIECE_PATTERN = Pattern.compile("([K,Q,R,B,N,P][a-h][1-8]\\s[K,Q,R,B,N,P][a-h][1-8][*])");
-	private static final Pattern MOVING_TWO_PIECES_PATTERN = Pattern.compile("([K,Q,R,B,N,P][a-h][1-8]\\s[K,Q,R,B,N,P][a-h][1-8] [K,Q,R,B,N,P][a-h][1-8]\\s[K,Q,R,B,N,P][a-h][1-8])");
+	static final Pattern PLACING_PIECE_PATTERN = Pattern.compile("([K,Q,R,B,N,P][l,d][a-h][1-8])");
+	static final Pattern MOVING_PIECE_PATTERN = Pattern.compile("([K,Q,R,B,N,P][a-h][1-8]\\s[K,Q,R,B,N,P][a-h][1-8])");
+	static final Pattern CAPTURING_PIECE_PATTERN = Pattern.compile("([K,Q,R,B,N,P][a-h][1-8]\\s[K,Q,R,B,N,P][a-h][1-8][*])");
+	static final Pattern MOVING_TWO_PIECES_PATTERN = Pattern.compile("([K,Q,R,B,N,P][a-h][1-8]\\s[K,Q,R,B,N,P][a-h][1-8] [K,Q,R,B,N,P][a-h][1-8]\\s[K,Q,R,B,N,P][a-h][1-8])");
 	static Map<String, String> map;
 	static
 	{
@@ -51,7 +51,7 @@ public class FileIO
 		String location = "";
 		for (String s : parts)
 		{
-			if ((m = PLACING_PIECE_PATTERN.matcher(s)).matches())
+			if ((m = PLACING_PIECE_PATTERN.matcher(s)).find())
 			{
 				String move = m.group(1);
 				String side = "";
@@ -66,7 +66,7 @@ public class FileIO
 				location = move.substring(2).toUpperCase();
 				System.out.println(side + " " + piece + " is placed on " + location + ".");
 
-			} else if ((m = MOVING_PIECE_PATTERN.matcher(s)).matches())
+			} else if ((m = MOVING_PIECE_PATTERN.matcher(s)).find())
 			{
 				String move = m.group(1);
 				piece = map.get(move.substring(0, 1));
@@ -75,7 +75,7 @@ public class FileIO
 				// System.out.println(move);
 				System.out.println(piece + " on tile " + location + " is moved to tile " + finalLoc + ".");
 
-			} else if ((m = CAPTURING_PIECE_PATTERN.matcher(s)).matches())
+			} else if ((m = CAPTURING_PIECE_PATTERN.matcher(s)).find())
 			{
 				String move = m.group(1);
 				piece = map.get(move.substring(0, 1));
@@ -83,7 +83,7 @@ public class FileIO
 				String finalLoc = move.substring(5, 7).toUpperCase();
 				// System.out.println(move);
 				System.out.println(piece + " on tile " + location + " is moved to tile " + finalLoc + " and has captured the piece on " + finalLoc + ".");
-			} else if ((m = MOVING_TWO_PIECES_PATTERN.matcher(s)).matches())
+			} else if ((m = MOVING_TWO_PIECES_PATTERN.matcher(s)).find())
 			{
 				String move = m.group(1);
 				piece = map.get(move.substring(0, 1));
