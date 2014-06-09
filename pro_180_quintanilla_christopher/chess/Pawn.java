@@ -80,20 +80,13 @@ public class Pawn extends ChessPiece
 		Position newPos = Position.createPosition(move.substring(5, 7));
 		if (isPositionOnBoard(newPos))
 		{
-			if (isPastFirstMove)
+			if (Math.abs(newPos.getCol() - pos.getCol()) == 1 && Math.abs(newPos.getRow() - pos.getRow()) == 1)
 			{
-				if (newPos.getCol() == pos.getCol() && Math.abs(newPos.getRow() - pos.getRow()) == 1)
-				{
-					return newPos;
-				}
-
-			} else
-			{
-				if (newPos.getCol() == pos.getCol() && Math.abs(newPos.getRow() - pos.getRow()) <= 2)
+				if (!isPastFirstMove)
 				{
 					isPastFirstMove = true;
-					return newPos;
 				}
+				return newPos;
 			}
 
 		}

@@ -13,6 +13,7 @@ public class Driver
 		ChessBoard board = new ChessBoard();
 		List<ChessPiece> piecesInPlay = board.setupBoard(moves);
 		Iterator<String> iterableMoveList = moves.iterator();
+		boolean isWhitesTurn = true;
 
 		while (iterableMoveList.hasNext())
 		{
@@ -28,27 +29,35 @@ public class Driver
 					Position p = Position.createPosition(currentMove.substring(1, 3));
 					if (c.getPos().equals(p))
 					{
-						board.removePiece(c);
-						Position temp = c.determineMovePosition(currentMove);
-						if (c.getPos().equals(temp))
+						if (c.isWhite() == isWhitesTurn)
 						{
-							System.out.println("Move Ignored due to error");
-						} else
-						{
-							if (board.isPathClear(c, temp))
+							board.removePiece(c);
+							Position temp = c.determineMovePosition(currentMove);
+							if (c.getPos().equals(temp))
 							{
-								c.getPos().setCol(temp.getCol());
-								c.getPos().setRow(temp.getRow());
-
+								System.out.println(c.getBoardRepresentation() + ": Move Ignored due to error");
 							} else
 							{
-								System.out.println("Path was not clear");
-							}
-						}
-						board.placePiece(c);
+								if (board.isPathClear(c, temp))
+								{
+									c.getPos().setCol(temp.getCol());
+									c.getPos().setRow(temp.getRow());
+									isWhitesTurn = !isWhitesTurn;
 
-						board.displayBoard();
-						break;
+								} else
+								{
+									System.out.println(c.getBoardRepresentation() + ": Path was not clear");
+								}
+							}
+							board.placePiece(c);
+
+							board.displayBoard();
+							break;
+						} else
+						{
+							System.out.println(c.getBoardRepresentation() + ": Turn ignored to sustain proper move order");
+							break;
+						}
 					}
 
 				} else if ((m = FileIO.CAPTURING_PIECE_PATTERN.matcher(currentMove)).matches())
@@ -56,35 +65,44 @@ public class Driver
 					Position p = Position.createPosition(currentMove.substring(1, 3));
 					if (c.getPos().equals(p))
 					{
-						board.removePiece(c);
-						Position temp = c.determineCapturingPosition(currentMove);
-						if (c.getPos().equals(temp))
+						if (c.isWhite() == isWhitesTurn)
 						{
-							System.out.println("Move Ignored due to error");
-						} else
-						{
-							if (board.isPathClear(c, temp))
+							board.removePiece(c);
+							Position temp = c.determineCapturingPosition(currentMove);
+							if (c.getPos().equals(temp))
 							{
-								for (ChessPiece toBeCaptured : piecesInPlay)
-								{
-									if (toBeCaptured.getPos().equals(temp))
-									{
-										board.removePiece(toBeCaptured);
-										break;
-									}
-								}
-								c.getPos().setCol(temp.getCol());
-								c.getPos().setRow(temp.getRow());
+								System.out.println(c.getBoardRepresentation() + ": Move Ignored due to error");
 
 							} else
 							{
-								System.out.println("Path was not clear");
-							}
-						}
-						board.placePiece(c);
+								if (board.isPathClear(c, temp))
+								{
+									for (ChessPiece toBeCaptured : piecesInPlay)
+									{
+										if (toBeCaptured.getPos().equals(temp))
+										{
+											board.removePiece(toBeCaptured);
+											break;
+										}
+									}
+									c.getPos().setCol(temp.getCol());
+									c.getPos().setRow(temp.getRow());
+									isWhitesTurn = !isWhitesTurn;
 
-						board.displayBoard();
-						break;
+								} else
+								{
+									System.out.println(c.getBoardRepresentation() + ": Path was not clear");
+								}
+							}
+							board.placePiece(c);
+
+							board.displayBoard();
+							break;
+						} else
+						{
+							System.out.println(c.getBoardRepresentation() + ": Turn ignored to sustain proper move order");
+							break;
+						}
 
 					} else if ((m = FileIO.MOVING_TWO_PIECES_PATTERN.matcher(currentMove)).matches())
 					{

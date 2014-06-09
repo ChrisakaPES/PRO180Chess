@@ -33,9 +33,13 @@ Pdg7
 Pdh7
 
 Pa2 Pa4
+Pa4 Pa5
 Ph7 Ph5
 Pa4 Pa5
+Pc7 Pc5
+Pb2	Pb4
 Rh8 Rh6
+Pb4 Pc5*
 Pa5 Pa6
 Pd2	Pd3
 Rh6 Ra6*

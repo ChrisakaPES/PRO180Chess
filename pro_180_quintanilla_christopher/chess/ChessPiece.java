@@ -32,6 +32,10 @@ public abstract class ChessPiece
 	//
 	// return new Position(row, column);
 	// }
+	public boolean isWhite()
+	{
+		return isWhite;
+	}
 
 	public boolean isPositionOnBoard(Position p)
 	{
