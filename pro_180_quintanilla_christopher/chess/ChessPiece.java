@@ -12,7 +12,14 @@ public abstract class ChessPiece
 
 	public abstract void placePiece();
 
-	public abstract void movePiece();
+	/**
+	 * Will alter the position of the piece to match the input string if the
+	 * move is valid it will return the new position if it is invalid it will
+	 * return the same position
+	 * 
+	 * @throws InvalidMoveException
+	 */
+	public abstract Position determineMovePosition(String move);
 
 	public abstract char getBoardRepresentation();
 
@@ -23,7 +30,18 @@ public abstract class ChessPiece
 	// int column = (int) c;
 	// int row = Integer.parseInt(loc.substring(1));
 	//
-	// return new Position(column, row);
+	// return new Position(row, column);
 	// }
+
+	public boolean isPositionOnBoard(Position p)
+	{
+		if (pos.getCol() > 8 || pos.getCol() < 1 || pos.getRow() > 8 || pos.getRow() < 1)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public abstract Position determineCapturingPosition(String move);
 
 }

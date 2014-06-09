@@ -25,10 +25,23 @@ public class Rook extends ChessPiece
 	}
 
 	@Override
-	public void movePiece()
+	public Position determineMovePosition(String move)
 	{
 		// TODO Auto-generated method stub
-
+		Position newPos = Position.createPosition(move.substring(5));
+		if (isPositionOnBoard(newPos))
+		{
+			if (newPos.getCol() != pos.getCol() || newPos.getRow() != pos.getRow())
+			{
+				if (newPos.getCol() == pos.getCol() || newPos.getRow() == pos.getRow())
+				{
+					// pos = newPos;
+					return newPos;
+				}
+			}
+		}
+		System.out.println("That move is invalid");
+		return pos;
 	}
 
 	@Override
@@ -48,6 +61,27 @@ public class Rook extends ChessPiece
 	public char getBoardRepresentation()
 	{
 		return boardRepresentation;
+	}
+
+	@Override
+	public Position determineCapturingPosition(String move)
+	{
+		// TODO Auto-generated method stub
+		Position newPos = Position.createPosition(move.substring(5, 7));
+		if (isPositionOnBoard(newPos))
+		{
+			if (newPos.getCol() != pos.getCol() || newPos.getRow() != pos.getRow())
+			{
+				if (newPos.getCol() == pos.getCol() || newPos.getRow() == pos.getRow())
+				{
+					// pos = newPos;
+					return newPos;
+				}
+			}
+		}
+		System.out.println("That move is invalid");
+		return pos;
+
 	}
 
 }

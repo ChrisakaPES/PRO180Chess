@@ -33,6 +33,7 @@ public class ChessBoard
 		{
 			System.out.print((char) (i + COLADJUSTVALUE));
 		}
+		System.out.println();
 	}
 
 	public List<ChessPiece> setupBoard(List<String> moves)
@@ -49,7 +50,7 @@ public class ChessBoard
 			Matcher m = FileIO.PLACING_PIECE_PATTERN.matcher(move);
 			if (m.matches())
 			{
-				String text = m.group(1);
+				// String text = m.group(1);
 				pieceType = FileIO.map.get(move.substring(0, 1));
 				if (move.substring(1, 2).equals("l"))
 				{
@@ -73,7 +74,7 @@ public class ChessBoard
 
 	public ChessPiece createPiece(String type, boolean side, String loc)
 	{
-		Position p = createPosition(loc);
+		Position p = Position.createPosition(loc);
 		ChessPiece cp = null;
 		switch (type)
 		{
@@ -101,19 +102,136 @@ public class ChessBoard
 
 	}
 
-	public Position createPosition(String loc)
-	{
-		char c = loc.charAt(0);
-		c = (char) (c - (COLADJUSTVALUE - 1));
-		int col = (int) c;
-		int row = Integer.parseInt(loc.substring(1));
-
-		return new Position(row, col);
-	}
+	// public Position createPosition(String loc)
+	// {
+	// char c = loc.charAt(0);
+	// c = (char) (c - (COLADJUSTVALUE - 1));
+	// int col = (int) c;
+	// int row = Integer.parseInt(loc.substring(1));
+	//
+	// return new Position(row, col);
+	// }
 
 	public void placePiece(ChessPiece cp)
 	{
 		Position placingTile = cp.getPos();
 		board[placingTile.getRow() - 1][placingTile.getCol() - 1] = cp.getBoardRepresentation();
+	}
+
+	public void removePiece(ChessPiece cp)
+	{
+		Position placingTile = cp.getPos();
+		board[placingTile.getRow() - 1][placingTile.getCol() - 1] = '-';
+	}
+
+	public boolean isPathClear(ChessPiece start, Position end)
+	{
+		if (start instanceof Knight)
+		{
+			return true;
+		}
+		int colDiff = start.getPos().getCol() - end.getCol();
+		int rowDiff = start.getPos().getRow() - end.getRow();
+		if (colDiff == 0)
+		{
+			if (rowDiff < 0) // piece moving down
+			{
+				for (int r = start.getPos().getRow(); r < end.getRow(); r++)
+				{
+					if (board[r - 1][start.getPos().getCol() - 1] != '-')
+					{
+						return false;
+					}
+				}
+			} else
+			// piece moving up
+			{
+				for (int r = start.getPos().getRow(); r > end.getRow(); r--)
+				{
+					if (board[r - 1][start.getPos().getCol() - 1] != '-')
+					{
+						return false;
+					}
+				}
+			}
+		} else if (rowDiff == 0)
+		{
+			if (colDiff < 0)// piece moving left
+			{
+				for (int c = start.getPos().getRow(); c < end.getRow(); c++)
+				{
+					if (board[start.getPos().getCol() - 1][c - 1] != '-')
+					{
+						return false;
+					}
+				}
+			} else
+			// piece moving right
+			{
+				for (int c = start.getPos().getCol(); c > end.getRow(); c--)
+				{
+					if (board[start.getPos().getRow() - 1][c - 1] != '-')
+					{
+						return false;
+
+					}
+				}
+			}
+		} else if (Math.abs(colDiff) == Math.abs(rowDiff)) // moving diagonally
+		{
+			if (rowDiff < 0 && colDiff < 0) // moving towards Bottom-Right
+											// corner
+			{
+				int r = start.getPos().getRow();
+				for (int c = start.getPos().getCol(); c < end.getCol(); c++)
+				{
+					if (board[r - 1][c - 1] != '-')
+					{
+						return false;
+					}
+					r++;
+				}
+
+			} else if (rowDiff < 0 && colDiff > 0) // moving towards Bottom-left
+													// corner
+			{
+				int r = start.getPos().getRow();
+				for (int c = start.getPos().getCol(); c > end.getCol(); c--)
+				{
+					if (board[r - 1][c - 1] != '-')
+					{
+						return false;
+					}
+					r++;
+				}
+			} else if (rowDiff > 0 && colDiff < 0) // moving towards top-right
+													// corner
+			{
+				int r = start.getPos().getRow();
+				for (int c = start.getPos().getCol(); c < end.getCol(); c++)
+				{
+					if (board[r - 1][c - 1] != '-')
+					{
+						return false;
+					}
+					r--;
+				}
+			} else if (rowDiff > 0 && colDiff > 0) // moving towards
+													// Top-Left corner
+			{
+				int r = start.getPos().getRow();
+				for (int c = start.getPos().getCol(); c > end.getCol(); c--)
+				{
+					if (board[r - 1][c - 1] != '-')
+					{
+						return false;
+					}
+					r--;
+				}
+			}
+		}
+
+		return true;
+
 	}
 }

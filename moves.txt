@@ -31,3 +31,19 @@ Pde7
 Pdf7
 Pdg7
 Pdh7
+
+Pa2 Pa4
+Ph7 Ph5
+Pa4 Pa5
+Rh8 Rh6
+Pa5 Pa6
+Pd2	Pd3
+Rh6 Ra6*
+Bc1 Bg5
+Pd7 Pd5
+Qd8 Qd6
+Ra1 Ra4
+Pd5 Pd4
+Ra4 Rd4*
+Qd6 Qd4*
+Bg5 Bd8

@@ -3,6 +3,7 @@ package pro_180_quintanilla_christopher.chess;
 public class Pawn extends ChessPiece
 {
 	private final char boardRepresentation;
+	private boolean isPastFirstMove;
 
 	public Pawn(boolean isWhite, Position p)
 	{
@@ -15,6 +16,7 @@ public class Pawn extends ChessPiece
 		{
 			boardRepresentation = 'P';
 		}
+		isPastFirstMove = false;
 	}
 
 	@Override
@@ -25,9 +27,30 @@ public class Pawn extends ChessPiece
 	}
 
 	@Override
-	public void movePiece()
+	public Position determineMovePosition(String move)
 	{
-		// TODO Auto-generated method stub
+		Position newPos = Position.createPosition(move.substring(5));
+		if (isPositionOnBoard(newPos))
+		{
+			if (isPastFirstMove)
+			{
+				if (newPos.getCol() == pos.getCol() && Math.abs(newPos.getRow() - pos.getRow()) == 1)
+				{
+					return newPos;
+				}
+
+			} else
+			{
+				if (newPos.getCol() == pos.getCol() && Math.abs(newPos.getRow() - pos.getRow()) <= 2)
+				{
+					isPastFirstMove = true;
+					return newPos;
+				}
+			}
+
+		}
+		System.out.println("That move is invalid");
+		return pos;
 
 	}
 
@@ -48,6 +71,34 @@ public class Pawn extends ChessPiece
 	public char getBoardRepresentation()
 	{
 		return boardRepresentation;
+	}
+
+	@Override
+	public Position determineCapturingPosition(String move)
+	{
+		// TODO Auto-generated method stub
+		Position newPos = Position.createPosition(move.substring(5, 7));
+		if (isPositionOnBoard(newPos))
+		{
+			if (isPastFirstMove)
+			{
+				if (newPos.getCol() == pos.getCol() && Math.abs(newPos.getRow() - pos.getRow()) == 1)
+				{
+					return newPos;
+				}
+
+			} else
+			{
+				if (newPos.getCol() == pos.getCol() && Math.abs(newPos.getRow() - pos.getRow()) <= 2)
+				{
+					isPastFirstMove = true;
+					return newPos;
+				}
+			}
+
+		}
+		System.out.println("That move is invalid");
+		return pos;
 	}
 
 }
