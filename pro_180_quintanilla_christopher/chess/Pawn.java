@@ -49,7 +49,6 @@ public class Pawn extends ChessPiece
 			}
 
 		}
-		System.out.println("That move is invalid");
 		return pos;
 
 	}
@@ -90,7 +89,6 @@ public class Pawn extends ChessPiece
 			}
 
 		}
-		System.out.println("That move is invalid");
 		return pos;
 	}
 

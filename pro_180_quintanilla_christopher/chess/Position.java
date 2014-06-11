@@ -3,6 +3,7 @@ package pro_180_quintanilla_christopher.chess;
 public final class Position
 {
 	private static final char COLADJUSTVALUE = '`';
+	private static final char ROWADJUSTVALUE = '0';
 	private int col, row;
 
 	public Position(int row, int col)
@@ -52,6 +53,18 @@ public final class Position
 			}
 		}
 		return false;
+	}
+
+	public static String createStringRepOfPosition(Position p)
+	{
+		String rep = "";
+		char c = (char) (p.getCol() + COLADJUSTVALUE);
+		rep = rep + c;
+
+		char r = (char) (p.getRow() + ROWADJUSTVALUE);
+		rep = rep + r;
+
+		return rep;
 	}
 
 }

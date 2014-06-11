@@ -44,7 +44,6 @@ public class Queen extends ChessPiece
 				return newPos;
 			}
 		}
-		System.out.println("That move is invalid Q");
 		return pos;
 
 	}
@@ -79,7 +78,6 @@ public class Queen extends ChessPiece
 			{
 				if ((Math.abs(newPos.getCol() - pos.getCol()) == Math.abs(newPos.getRow() - pos.getRow())))
 				{
-					// pos = newPos;
 					return newPos;
 				}
 			} else if (newPos.getCol() == pos.getCol() || newPos.getRow() == pos.getRow())
@@ -88,7 +86,6 @@ public class Queen extends ChessPiece
 				return newPos;
 			}
 		}
-		System.out.println("That move is invalid Q");
 		return pos;
 	}
 

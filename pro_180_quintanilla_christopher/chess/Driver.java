@@ -27,10 +27,31 @@ public class Driver
 				} else if ((m = FileIO.MOVING_PIECE_PATTERN.matcher(currentMove)).matches())
 				{
 					Position p = Position.createPosition(currentMove.substring(1, 3));
+
 					if (c.getPos().equals(p))
 					{
 						if (c.isWhite() == isWhitesTurn)
 						{
+							if (Driver.checkForCheck(piecesInPlay, board, isWhitesTurn))
+							{
+								if (isWhitesTurn)
+								{
+									System.out.println("White King is in check");
+								} else
+								{
+									System.out.println("Black King is in check");
+								}
+							} else
+							{
+								if (isWhitesTurn)
+								{
+									System.out.println("White King is not in check");
+								} else
+								{
+									System.out.println("Black King is not in check");
+								}
+							}
+
 							board.removePiece(c);
 							Position temp = c.determineMovePosition(currentMove);
 							if (c.getPos().equals(temp))
@@ -63,10 +84,31 @@ public class Driver
 				} else if ((m = FileIO.CAPTURING_PIECE_PATTERN.matcher(currentMove)).matches())
 				{
 					Position p = Position.createPosition(currentMove.substring(1, 3));
+
 					if (c.getPos().equals(p))
 					{
 						if (c.isWhite() == isWhitesTurn)
 						{
+							if (Driver.checkForCheck(piecesInPlay, board, isWhitesTurn))
+							{
+								if (isWhitesTurn)
+								{
+									System.out.println("White King is in check");
+								} else
+								{
+									System.out.println("Black King is in check");
+								}
+							} else
+							{
+								if (isWhitesTurn)
+								{
+									System.out.println("White King is not in check");
+								} else
+								{
+									System.out.println("Black King is not in check");
+								}
+							}
+
 							board.removePiece(c);
 							Position temp = c.determineCapturingPosition(currentMove);
 							if (c.getPos().equals(temp))
@@ -111,8 +153,58 @@ public class Driver
 				}
 			}
 
-			// board.displayBoard();
 		}
+	}
+
+	public static boolean checkForCheck(List<ChessPiece> pieces, ChessBoard board, boolean isWhitesTurn)
+	{
+		King k = null;
+		char kingChar = isWhitesTurn ? 'k' : 'K';
+		for (ChessPiece c : pieces)
+		{
+			if (c.getBoardRepresentation() == kingChar)
+			{
+				k = (King) c;
+				break;
+			}
+
+			// if (isWhitesTurn)
+			// {
+			// if (c.getBoardRepresentation() == 'k')
+			// {
+			// k = (King) c;
+			// break;
+			// }
+			// } else
+			// {
+			// if (c.getBoardRepresentation() == 'K')
+			// {
+			// k = (King) c;
+			// break;
+			// }
+			// }
+		}
+		Position temp = null;
+		for (ChessPiece c : pieces)
+		{
+			if (c.isWhite() != isWhitesTurn)
+			{
+				String potentialCheckMove = Character.toUpperCase(c.getBoardRepresentation()) + Position.createStringRepOfPosition(c.getPos()) + " "
+						+ Character.toUpperCase(c.getBoardRepresentation()) + Position.createStringRepOfPosition(k.getPos()) + "*";
+				if (!c.getPos().equals(temp = c.determineCapturingPosition(potentialCheckMove)))
+				{
+					board.removePiece(c);
+					boolean clear = board.isPathClear(c, k.getPos());
+					board.placePiece(c);
+					if (clear)
+					{
+						return true;
+					}
+
+				}
+			}
+		}
+		return false;
 	}
 
 }

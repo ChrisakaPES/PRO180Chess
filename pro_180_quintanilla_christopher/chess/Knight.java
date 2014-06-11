@@ -37,7 +37,6 @@ public class Knight extends ChessPiece
 				return newPos;
 			}
 		}
-		System.out.println("That move is invalid");
 		return pos;
 	}
 
@@ -73,7 +72,6 @@ public class Knight extends ChessPiece
 				return newPos;
 			}
 		}
-		System.out.println("That move is invalid");
 		return pos;
 	}
 

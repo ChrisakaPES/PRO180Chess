@@ -40,7 +40,6 @@ public class Rook extends ChessPiece
 				}
 			}
 		}
-		System.out.println("That move is invalid");
 		return pos;
 	}
 
@@ -74,12 +73,10 @@ public class Rook extends ChessPiece
 			{
 				if (newPos.getCol() == pos.getCol() || newPos.getRow() == pos.getRow())
 				{
-					// pos = newPos;
 					return newPos;
 				}
 			}
 		}
-		System.out.println("That move is invalid");
 		return pos;
 
 	}

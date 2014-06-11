@@ -33,15 +33,12 @@ public class King extends ChessPiece
 		{
 			if (Math.abs(newPos.getCol() - pos.getCol()) > 1 || Math.abs(newPos.getRow() - pos.getRow()) > 1)
 			{
-				System.out.println("That move is invalid");
 				return pos;
 			}
 		} else
 		{
-			System.out.println("That move is invalid");
 			return pos;
 		}
-		// pos = newPos;
 		return newPos;
 
 	}
@@ -53,12 +50,10 @@ public class King extends ChessPiece
 		{
 			if (Math.abs(newPos.getCol() - pos.getCol()) > 1 || Math.abs(newPos.getRow() - pos.getRow()) > 1)
 			{
-				System.out.println("That move is invalid");
 				return pos;
 			}
 		} else
 		{
-			System.out.println("That move is invalid");
 			return pos;
 		}
 		// pos = newPos;

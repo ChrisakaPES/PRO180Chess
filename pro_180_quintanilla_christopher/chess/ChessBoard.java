@@ -33,7 +33,8 @@ public class ChessBoard
 		{
 			System.out.print((char) (i + COLADJUSTVALUE));
 		}
-		System.out.println();
+		System.out.println("\n");
+
 	}
 
 	public List<ChessPiece> setupBoard(List<String> moves)
