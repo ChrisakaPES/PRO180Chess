@@ -32,24 +32,13 @@ public class Driver
 					{
 						if (c.isWhite() == isWhitesTurn)
 						{
+							String whoseTurn = isWhitesTurn ? "White " : "Black ";
 							if (Driver.checkForCheck(piecesInPlay, board, isWhitesTurn))
 							{
-								if (isWhitesTurn)
-								{
-									System.out.println("White King is in check");
-								} else
-								{
-									System.out.println("Black King is in check");
-								}
+								System.out.println(whoseTurn + "King is in check");
 							} else
 							{
-								if (isWhitesTurn)
-								{
-									System.out.println("White King is not in check");
-								} else
-								{
-									System.out.println("Black King is not in check");
-								}
+								System.out.println(whoseTurn + "King is not in check");
 							}
 
 							board.removePiece(c);
@@ -89,24 +78,13 @@ public class Driver
 					{
 						if (c.isWhite() == isWhitesTurn)
 						{
+							String whoseTurn = isWhitesTurn ? "White " : "Black ";
 							if (Driver.checkForCheck(piecesInPlay, board, isWhitesTurn))
 							{
-								if (isWhitesTurn)
-								{
-									System.out.println("White King is in check");
-								} else
-								{
-									System.out.println("Black King is in check");
-								}
+								System.out.println(whoseTurn + "King is in check");
 							} else
 							{
-								if (isWhitesTurn)
-								{
-									System.out.println("White King is not in check");
-								} else
-								{
-									System.out.println("Black King is not in check");
-								}
+								System.out.println(whoseTurn + "King is not in check");
 							}
 
 							board.removePiece(c);
